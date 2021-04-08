@@ -1,38 +1,16 @@
-import { useEffect, useState, FunctionComponent } from "react";
-import {
-  withAuthenticator,
-  AmplifySignOut,
-} from "@aws-amplify/ui-react";
+import { FunctionComponent } from "react";
 
-import { Auth } from "aws-amplify";
+export const loginUrl = "https://fe-react-app.auth.eu-central-1.amazoncognito.com/login?client_id=424mllnjg0vb83q1qbpojq55h0&response_type=token&scope=aws.cognito.signin.user.admin+email+openid&redirect_uri=http://localhost:3000/auth/token";
 
 const App: FunctionComponent<unknown> = () => {
-  const [ state, setState ] = useState({});
-  useEffect(() => {
-    (async () => {
-      try {
-        const userInfo = await Auth.currentAuthenticatedUser();
-        Auth.currentCredentials()
-        setState(userInfo);
-      } catch (error) {
-        console.error(error);
-      }
-    })();
-  }, []);
 
   return (
     <div className="app">
       <main className="wrapper">
-        <h3> Data: </h3>
-        <pre>
-          {JSON.stringify(state, undefined, 2)}
-        </pre>
+        <a href={loginUrl}> LOGIN </a>
       </main>
-      <div className="logout">
-        <AmplifySignOut />
-      </div>
     </div>
   );
 }
 
-export default withAuthenticator(App);
+export default App;
